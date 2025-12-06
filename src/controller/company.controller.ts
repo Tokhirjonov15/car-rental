@@ -1,9 +1,11 @@
 import express, { Response, Request } from "express";
 import { T } from "../libs/types/common";
+import UserService from "../models/User.service";
 
 const companyController: T = {};
 companyController.goHome = (req: Request, res: Response) => {
     try {
+        console.log("goHome");
         res.send("Home Page");
     } catch (err) {
         console.log("ERROR, goHome:", err);
@@ -12,6 +14,7 @@ companyController.goHome = (req: Request, res: Response) => {
 
 companyController.getLogin = (req: Request, res: Response) => {
     try {
+        console.log("getLogin");
         res.send("Login Page");
     } catch (err) {
         console.log("ERROR, getLogin:", err);
@@ -20,6 +23,7 @@ companyController.getLogin = (req: Request, res: Response) => {
 
 companyController.getSignup = (req: Request, res: Response) => {
     try {
+        console.log("getSignup");
         res.send("Signup Page");
     } catch (err) {
         console.log("ERROR, getSignup:", err);
