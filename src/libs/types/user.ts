@@ -10,6 +10,8 @@ export interface User {
     userAddress?: string;
     userImage?: string;
     userRating: number;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface UserInput {

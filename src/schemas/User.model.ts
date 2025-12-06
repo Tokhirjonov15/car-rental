@@ -53,6 +53,7 @@ const userSchema = new Schema(
     },
     {
         collection: "members",
+        timestamps: true,
     }
 );
 
