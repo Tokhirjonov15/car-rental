@@ -1,61 +1,59 @@
 import mongoose, { Schema } from "mongoose";
-import { userStatus, UserType } from "../libs/enums/user.enum";
+import { UserStatus, UserType } from "../libs/enums/user.enum";
 
-const userSchema = new Schema ({
-    userType: {
-        type: String,
-        enum: UserType,
-        default: UserType.USER,
-    },
+const userSchema = new Schema(
+    {
+        userType: {
+            type: String,
+            enum: Object.values(UserType),
+            default: UserType.USER,
+        },
 
-    userStatus: {
-        type: String,
-        enum: userStatus,
-        default: userStatus.ACTIVE,
-    },
+        userStatus: {
+            type: String,
+            enum: Object.values(UserStatus),
+            default: UserStatus.ACTIVE,
+        },
 
-    userId: {
-        type: String,
-        index: { unique: true, sparse: true },
-        required: true,
-        match: [/^[a-zA-Z0-9]+$/, "Userid can be only letters and numbers!"],
-    },
+        userId: {
+            type: String,
+            index: { unique: true, sparse: true },
+            required: true,
+        },
 
-    userAge: {
-        type: Date,
-        required: true,
-    },
+        userAge: {
+            type: Number,
+            required: true,
+        },
 
-    userLicence: {
-        type: String,
-        required: true,
-    },
+        userPhone: {
+            type: String,
+            index: { unique: true, sparse: true },
+            required: true,
+        },
 
-    userPhone: {
-        type: String,
-        index: { unique: true, sparse: true },
-        required: true,
-        match: [/^\+?[0-9]{9,15}$/, "Invalid phone number"],
-    },
+        userPassword: {
+            type: String,
+            select: false,
+            required: true,
+        },
 
-    userPassword: {
-        type: String,
-        select: false,
-        required: true,
-    },
+        userAddress: {
+            type: String,
+        },
 
-    userAddress: {
-        type: String,
-    },
+        userImage: {
+            type: String,
+        },
 
-    userImage: {
-        type: String,
+        userRating: {
+            type: Number,
+            default: 0,
+        },
     },
-
-    userRating: {
-        type: Number,
-        default: 0,
-    },
-});
+    {
+        collection: "members",
+    }
+);
 
 export default mongoose.model("User", userSchema);

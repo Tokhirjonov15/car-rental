@@ -1,5 +1,7 @@
 import express, { Response, Request } from "express";
 import { T } from "../libs/types/common";
+import { LoginInput, UserInput } from "../libs/types/user";
+import { UserType } from "../libs/enums/user.enum";
 import UserService from "../models/User.service";
 
 const companyController: T = {};
@@ -30,21 +32,34 @@ companyController.getSignup = (req: Request, res: Response) => {
     }
 };
 
-companyController.processLogin = (req: Request, res: Response) => {
+companyController.processSignup = async (req: Request, res: Response) => {
     try {
-        console.log("processLogin");
-        res.send("DONE");
+        console.log("processSignup:");
+        console.log("req.body:", req.body);
+        const newUser: UserInput = req.body;
+        newUser.userType = UserType.COMPANY;
+
+        const userService = new UserService();
+        const result = await userService.processSignup(newUser);
+
+        res.send(result);
     } catch (err) {
-        console.log("ERROR, processLogin:", err);
+        console.log("ERROR, processSignup:", err);
+        res.send(err);
     }
 };
 
-companyController.processSignup = (req: Request, res: Response) => {
+companyController.processLogin = async (req: Request, res: Response) => {
     try {
-        console.log("processSignup");
-        res.send("DONE");
+        console.log("processLogin");
+        console.log("body:", req.body);
+        const input: LoginInput = req.body;
+        const userService = new UserService;   
+        const result = await userService.processLogin(input);                
+        res.send(result);
     } catch (err) {
-        console.log("ERROR, processSignup:", err);
+        console.log("ERROR, processLogin:", err);
+        res.send(err);
     }
 };
 

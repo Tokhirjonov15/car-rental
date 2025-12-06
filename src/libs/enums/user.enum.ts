@@ -3,7 +3,7 @@ export enum UserType {
     COMPANY = "COMPANY",
 }
 
-export enum userStatus {
+export enum UserStatus {
     ACTIVE = "ACTIVE",
     BLOCK = "BLOCK",
     PAUSE = "PAUSE",
