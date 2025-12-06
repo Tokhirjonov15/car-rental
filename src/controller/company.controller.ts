@@ -5,6 +5,8 @@ import { UserType } from "../libs/enums/user.enum";
 import UserService from "../models/User.service";
 
 const companyController: T = {};
+const userService = new UserService();
+
 companyController.goHome = (req: Request, res: Response) => {
     try {
         console.log("goHome");
@@ -38,8 +40,6 @@ companyController.processSignup = async (req: Request, res: Response) => {
         console.log("req.body:", req.body);
         const newUser: UserInput = req.body;
         newUser.userType = UserType.COMPANY;
-
-        const userService = new UserService();
         const result = await userService.processSignup(newUser);
 
         res.send(result);
@@ -53,8 +53,7 @@ companyController.processLogin = async (req: Request, res: Response) => {
     try {
         console.log("processLogin");
         console.log("body:", req.body);
-        const input: LoginInput = req.body;
-        const userService = new UserService;   
+        const input: LoginInput = req.body;   
         const result = await userService.processLogin(input);                
         res.send(result);
     } catch (err) {
