@@ -11,6 +11,8 @@ routerAdmin
   .get("/signup", companyController.getSignup)
   .post("/signup", companyController.processSignup);
 
+routerAdmin.get("/check-me", companyController.checkAuthSession);
+
 /** Car */
 /** User */
 

@@ -3,6 +3,7 @@ import { T } from "../libs/types/common";
 import { AdminRequest, LoginInput, UserInput } from "../libs/types/user";
 import { UserType } from "../libs/enums/user.enum";
 import UserService from "../models/User.service";
+import { Message } from "../libs/Error";
 
 const companyController: T = {};
 const userService = new UserService();
@@ -57,7 +58,7 @@ companyController.processLogin = async (req: AdminRequest, res: Response) => {
         console.log("body:", req.body);
         const input: LoginInput = req.body;   
         const result = await userService.processLogin(input); 
-                       
+
         req.session.user = result;
         req.session.save(function() {
             res.send(result);
@@ -67,5 +68,17 @@ companyController.processLogin = async (req: AdminRequest, res: Response) => {
         res.send(err);
     }
 };
+
+companyController.checkAuthSession = async (req: AdminRequest, res: Response) => {
+    try {
+        console.log("checkAuthSession");
+        if (req.session?.user)
+            res.send(`<script> alert("${req.session.user.userId}")</script>`);
+        else res.send(`<script> alert("${Message.NOT_AUTHENTICATED}")</script>`);
+    } catch (err) {
+        console.log("ERROR, checkAuthSession:", err);
+        res.send(err);
+    }
+}
 
 export default companyController;
