@@ -1,4 +1,6 @@
+import { Session } from "express-session";
 import { UserStatus, UserType } from "../enums/user.enum";
+import { Request } from 'express';
 
 export interface User {
     userType: UserType;
@@ -29,4 +31,9 @@ export interface UserInput {
 export interface LoginInput {
     userId: string;
     userPassword: string;
+}
+
+export interface AdminRequest extends Request {
+    user: User;
+    session: Session & { user: User };
 }
