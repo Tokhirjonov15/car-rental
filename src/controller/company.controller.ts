@@ -3,7 +3,7 @@ import { T } from "../libs/types/common";
 import { AdminRequest, LoginInput, UserInput } from "../libs/types/user";
 import { UserType } from "../libs/enums/user.enum";
 import UserService from "../models/User.service";
-import { Message } from "../libs/Error";
+import Errors, { Message } from "../libs/Error";
 
 const companyController: T = {};
 const userService = new UserService();
@@ -14,6 +14,7 @@ companyController.goHome = (req: Request, res: Response) => {
         res.render("home");
     } catch (err) {
         console.log("ERROR, goHome:", err);
+        res.redirect("/admin");
     }
 };
 
@@ -23,6 +24,7 @@ companyController.getLogin = (req: Request, res: Response) => {
         res.render("login");
     } catch (err) {
         console.log("ERROR, getLogin:", err);
+        res.redirect("/admin");
     }
 };
 
@@ -32,6 +34,7 @@ companyController.getSignup = (req: Request, res: Response) => {
         res.render("signup");
     } catch (err) {
         console.log("ERROR, getSignup:", err);
+        res.redirect("/admin");
     }
 };
 
@@ -48,14 +51,17 @@ companyController.processSignup = async (req: AdminRequest, res: Response) => {
         }); 
     } catch (err) {
         console.log("ERROR, processSignup:", err);
-        res.send(err);
+        const message = 
+          err instanceof Errors ? err.message : Message.SOMETHNG_WENT_WRONG;
+        res.send(
+            `<script> alert("${message}"); window.location.replace('admin/signup') </script>`
+        );
     }
 };
 
 companyController.processLogin = async (req: AdminRequest, res: Response) => {
     try {
         console.log("processLogin");
-        console.log("body:", req.body);
         const input: LoginInput = req.body;   
         const result = await userService.processLogin(input); 
 
@@ -65,7 +71,23 @@ companyController.processLogin = async (req: AdminRequest, res: Response) => {
         });
     } catch (err) {
         console.log("ERROR, processLogin:", err);
-        res.send(err);
+        const message = 
+          err instanceof Errors ? err.message : Message.SOMETHNG_WENT_WRONG;
+        res.send(
+            `<script> alert("${message}"); window.location.replace('admin/login') </script>`
+        );
+    }
+};
+
+companyController.logout = async (req: AdminRequest, res: Response) => {
+    try {
+        console.log("logout");
+        req.session.destroy(function () {
+            res.redirect("/admin");
+        })
+    } catch (err) {
+        console.log("ERROR, logout:", err);
+        res.redirect("/admin");
     }
 };
 
@@ -79,6 +101,6 @@ companyController.checkAuthSession = async (req: AdminRequest, res: Response) =>
         console.log("ERROR, checkAuthSession:", err);
         res.send(err);
     }
-}
+};
 
 export default companyController;
