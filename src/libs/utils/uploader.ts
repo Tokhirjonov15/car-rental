@@ -3,13 +3,12 @@ import fs from "fs";
 import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
 
-/** MULTER IMAGE UPLOADER */
 function getTargetImageStorage(address: string) {
     return multer.diskStorage({
         destination: function (req, file, cb) {
             const uploadPath = path.join(process.cwd(), "uploads", address);
 
-            // File Creation 
+            // papkani avtomatik yaratadi
             if (!fs.existsSync(uploadPath)) {
                 fs.mkdirSync(uploadPath, { recursive: true });
             }
@@ -17,20 +16,18 @@ function getTargetImageStorage(address: string) {
             cb(null, uploadPath);
         },
         filename: function (req, file, cb) {
-            const extension = path.parse(file.originalname).ext;
-            const random_name = uuidv4() + extension;
-            cb(null, random_name);
+            const extension = path.extname(file.originalname);
+            const randomName = uuidv4() + extension;
+            cb(null, randomName);
         },
     });
 }
 
 const makeUploader = (address: string) => {
-    const storage = getTargetImageStorage(address);
-    return multer({ storage });
+    return multer({ storage: getTargetImageStorage(address) });
 };
 
 export default makeUploader;
-
 
 /*
    const product_storage = multer.diskStorage ({

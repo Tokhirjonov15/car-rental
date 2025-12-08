@@ -5,13 +5,13 @@ const vehicleSchema = new Schema (
     {
         vehicleStatus: {
             type: String,
-            enum: VehicleStatus,
+            enum: Object.values(VehicleStatus),
             default: VehicleStatus.AVAILABLE,
         },
 
         vehicleCollection: {
             type: String,
-            enum: VehicleCollection,
+            enum: Object.values(VehicleCollection),
             required: true,
         },
 
@@ -27,7 +27,7 @@ const vehicleSchema = new Schema (
 
         vehicleFuel: {
             type: String,
-            enum: VehicleFuel,
+            enum: Object.values(VehicleFuel),
             required: true,
         },
 
