@@ -2,6 +2,7 @@ import express, { Response, Request } from "express";
 const routerAdmin = express.Router();
 import companyController from "./controller/company.controller";
 import vehicleController from "./controller/vehicle.controller";
+import makeUploader from "./libs/utils/uploader";
 
 /** Company */
 routerAdmin.get("/", companyController.goHome);
@@ -10,7 +11,11 @@ routerAdmin
   .post("/login", companyController.processLogin);
 routerAdmin
   .get("/signup", companyController.getSignup)
-  .post("/signup", companyController.processSignup);
+  .post(
+    "/signup",
+    makeUploader("users").single("userImage"), 
+    companyController.processSignup
+  );
 
 routerAdmin.get("/logout", companyController.logout);
 routerAdmin.get("/check-me", companyController.checkAuthSession);
@@ -25,6 +30,8 @@ routerAdmin.get(
 routerAdmin.post(
   "/vehicle/create",
   companyController.verifyCompany, 
+  // uploadVehicleImage.single("vehicleImage"),
+  makeUploader("vehicles").array("vehicleImages", 5),
   vehicleController.createNewVehicle
 );
 routerAdmin.post(

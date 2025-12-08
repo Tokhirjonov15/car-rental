@@ -20,6 +20,7 @@ vehicleController.getAllVehicles = async (req: Request, res: Response) => {
 vehicleController.createNewVehicle = async (req: Request, res: Response) => {
     try {
         console.log("createNewVehicle");
+        res.send("DONE");
     } catch (err) {
         console.log("Error, createNewVehicle:", err);
         if (err instanceof Errors) res.status(err.code).json(err);
@@ -30,6 +31,7 @@ vehicleController.createNewVehicle = async (req: Request, res: Response) => {
 vehicleController.updateChosenVehicle = async (req: Request, res: Response) => {
     try {
         console.log("updateChosenVehicle");
+        res.send("DONE");
     } catch (err) {
         console.log("Error, updateChosenVehicle:", err);
         if (err instanceof Errors) res.status(err.code).json(err);
