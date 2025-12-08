@@ -1,4 +1,4 @@
-import express, { Response, Request } from "express";
+import express, { Response, Request, NextFunction } from "express";
 import { T } from "../libs/types/common";
 import { AdminRequest, LoginInput, UserInput } from "../libs/types/user";
 import { UserType } from "../libs/enums/user.enum";
@@ -101,6 +101,22 @@ companyController.checkAuthSession = async (req: AdminRequest, res: Response) =>
         console.log("ERROR, checkAuthSession:", err);
         res.send(err);
     }
+};
+
+companyController.verifyCompany = (
+    req: AdminRequest, 
+    res: Response,
+    next: NextFunction
+) => {
+        if (req.session?.user?.userType === UserType.COMPANY) {
+            req.user = req.session.user;
+            next();
+        } else {
+            const message = Message.NOT_AUTHENTICATED;
+            res.send (
+                `<script> alert("${message}"); window.location.replace("/admin/login"); </script>`
+            );
+        }
 };
 
 export default companyController;

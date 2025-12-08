@@ -17,9 +17,21 @@ routerAdmin.get("/check-me", companyController.checkAuthSession);
 
 
 /** Vehicle */
-routerAdmin.get("/vehicle/all", vehicleController.getAllVehicles);
-routerAdmin.post("/vehicle/create", vehicleController.createNewVehicle);
-routerAdmin.post("/vehicle/:id", vehicleController.updateChosenVehicle);
+routerAdmin.get(
+  "/vehicle/all", 
+  companyController.verifyCompany,
+  vehicleController.getAllVehicles
+);
+routerAdmin.post(
+  "/vehicle/create",
+  companyController.verifyCompany, 
+  vehicleController.createNewVehicle
+);
+routerAdmin.post(
+  "/vehicle/:id", 
+  companyController.verifyCompany,
+  vehicleController.updateChosenVehicle
+);
 /** User */
 
 export default routerAdmin;
