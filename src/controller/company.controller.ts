@@ -106,7 +106,19 @@ companyController.getUsers = async (req: Request, res: Response) => {
         console.log("ERROR, getUsers:", err);
         res.redirect("/admin/login");
     }
-}
+};
+
+companyController.updateChosenUser = async (req: Request, res: Response) => {
+    try {
+        console.log("updateChosenUser");
+        const result = await userService.updateChosenUser(req.body);
+        res.status(HttpCode.OK).json({ data: result });
+    } catch (err) {
+        console.log("ERROR, updateChosenUser:", err);
+        if (err instanceof Errors) res.status(err.code).json(err);
+        else res.status(Errors.standart.code).json(Errors.standart);
+    }
+};
 
 companyController.checkAuthSession = async (req: AdminRequest, res: Response) => {
     try {

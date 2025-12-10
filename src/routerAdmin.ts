@@ -47,4 +47,10 @@ routerAdmin.get(
   companyController.getUsers
 );
 
+routerAdmin.post(
+  "/user/edit",
+  companyController.verifyCompany,
+  companyController.updateChosenUser
+);
+
 export default routerAdmin;
