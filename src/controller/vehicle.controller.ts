@@ -53,7 +53,11 @@ vehicleController.createNewVehicle = async (req: AdminRequest, res: Response) =>
 vehicleController.updateChosenVehicle = async (req: Request, res: Response) => {
     try {
         console.log("updateChosenVehicle");
-        res.send("DONE");
+        const id = req.params.id;
+        console.log("Id:", id);
+
+        const result = await vehicleService.updateChosenVehicle(id, req.body);
+        res.status(HttpCode.OK).json({ data: result });
     } catch (err) {
         console.log("Error, updateChosenVehicle:", err);
         if (err instanceof Errors) res.status(err.code).json(err);

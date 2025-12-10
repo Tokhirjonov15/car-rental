@@ -23,3 +23,15 @@ export interface VehicleInput {
     vehicleMile?: number;
     vehicleImages?: string[];
 }
+
+export interface VehicleUpdateInput {
+    vehicleStatus?: VehicleStatus;
+    vehicleCollection?: VehicleCollection;
+    vehicleName?: string;
+    vehiclePrice?: number;
+    vehicleFuel?: VehicleFuel;
+    vehicleDoor?: number;
+    vehicleSeat?: number;
+    vehicleMile?: number;
+    vehicleImages?: string[];
+}
