@@ -39,6 +39,12 @@ routerAdmin.post(
   companyController.verifyCompany,
   vehicleController.updateChosenVehicle
 );
+
 /** User */
+routerAdmin.get(
+  "/user/all",
+  companyController.verifyCompany,
+  companyController.getUsers
+);
 
 export default routerAdmin;

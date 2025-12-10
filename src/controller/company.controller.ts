@@ -95,6 +95,19 @@ companyController.logout = async (req: AdminRequest, res: Response) => {
     }
 };
 
+companyController.getUsers = async (req: Request, res: Response) => {
+    try {
+        console.log("getUsers");
+        const result = await userService.getUsers();
+        console.log("Users list:", result);
+        
+        res.render("users", {users: result});
+    } catch (err) {
+        console.log("ERROR, getUsers:", err);
+        res.redirect("/admin/login");
+    }
+}
+
 companyController.checkAuthSession = async (req: AdminRequest, res: Response) => {
     try {
         console.log("checkAuthSession");
