@@ -1,9 +1,265 @@
 <%- include('includes/header') %>
 
+<link rel="stylesheet" type="text/css" href="/css/vehicles.css" />
 
 <body>
-    <div>VEHICLES PAGE</div>
-</body>
+<<<<<<< HEAD
+  <div class="vehicles-container">
+=======
+  <div class="products-container">
+>>>>>>> ead7416694ce765dde9607814db9c10738f329b1
+    <div class="navigation-menu">
+      <h2 class="admin-welcome">WELCOME!</h2>
+      <ul class="nav justify-content-center">
+        <li class="nav-item" style="cursor: pointer">
+          <a class="nav-link active" href="/admin/">Home</a>
+        </li>
+        <li class="nav-item" style="cursor: pointer">
+          <a class="nav-link" href="/admin/vehicle/all">Vehicles</a>
+        </li>
+        <li class="nav-item" style="cursor: pointer">
+          <a class="nav-link" href="/admin/user/all">Users</a>
+        </li>
+        <li
+          class="nav-item"
+          style="cursor: pointer"
+          onclick="return confirm('Do you want to logout?')"
+        >
+          <a class="nav-link" href="/admin/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
 
+<<<<<<< HEAD
+    <div class="vehicles-list-frame">
+      <div class="board">
+        <div class="cars-table">
+          <span class="new-car-txt" style="margin-bottom: 30px">
+=======
+    <div class="restaurant-menu-frame">
+      <div class="board">
+        <div class="dishes-table">
+          <span class="new-dish-txt" style="margin-bottom: 30px">
+>>>>>>> ead7416694ce765dde9607814db9c10738f329b1
+            VEHICLES LIST
+          </span>
+          <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+              <tr class="thead-light">
+                <th scope="col">T/r</th>
+                <th scope="col">Vehicle Name</th>
+                <th scope="col">Vehicle Type</th>
+                <th scope="col">Rent Price per Day</th>
+                <th scope="col">Vehicle Fuel</th>
+                <th scope="col">Vehicle Door</th>
+                <th scope="col">Vehicle Seat</th>
+                <th scope="col">Vehicle Mile</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <!--  LOOP PRODUCTS: START  -->
+            <tbody style="background: white">
+              <td>1</td>
+              <td>Kia K5</td>
+              <td>SEDAN</td>
+              <td>$30</td>
+              <td>GASOLINE</td>
+              <td>4</td>
+              <td>5</td>
+              <td>15000</td>
+              <td>
+<<<<<<< HEAD
+                <select class="spec-select new-vehicle-status">
+=======
+                <select class="spec-select new-product-status">
+>>>>>>> ead7416694ce765dde9607814db9c10738f329b1
+                  <option value="PAUSE" selected>PAUSE</option>
+                  <option value="DELETE">AVAILABLE</option>
+                </select>
+              </td>
+            </tbody>
+            <!--  LOOP PRODUCTS: END  -->
+          </table>
+          <div
+            class="long-input"
+            style="align-items: flex-end; margin-bottom: 25px"
+          >
+            <button class="btn btn-primary" id="process-btn">
+              Add New Vehicle
+            </button>
+          </div>
+        </div>
+
+<<<<<<< HEAD
+          <div class="form-container">
+=======
+          <div class="container">
+>>>>>>> ead7416694ce765dde9607814db9c10738f329b1
+            <!-- Title section -->
+            <div class="title">Vehicle Details</div>
+            <div class="content">
+              <!-- Registration form -->
+              <form action="#">
+<<<<<<< HEAD
+                <div class="vehicle-details">
+                  <!-- Input for Vehicle Name -->
+=======
+                <div class="user-details">
+                  <!-- Input for Full Name -->
+>>>>>>> ead7416694ce765dde9607814db9c10738f329b1
+                  <div class="input-box">
+                    <span class="details">Vehicle Name</span>
+                    <input type="text" placeholder="Enter Vehicle Name" required>
+                  </div>
+<<<<<<< HEAD
+                  <!-- Input for Rent Price -->
+=======
+                  <!-- Input for Username -->
+                  
+                  <!-- Input for Email -->
+>>>>>>> ead7416694ce765dde9607814db9c10738f329b1
+                  <div class="input-box">
+                    <span class="details">Rent Price per Day</span>
+                    <input type="text" placeholder="Enter Rent Price per Day" required>
+                  </div>
+<<<<<<< HEAD
+                  <!-- Input for Vehicle Mile -->
+=======
+                  <!-- Input for Phone Number -->
+>>>>>>> ead7416694ce765dde9607814db9c10738f329b1
+                  <div class="input-box">
+                    <span class="details">Vehicle Mile</span>
+                    <input type="text" placeholder="Enter Vehicle Mile" required>
+                  </div>
+<<<<<<< HEAD
+                  <!-- Input for Vehicle Door -->
+=======
+                  <!-- Input for Password -->
+>>>>>>> ead7416694ce765dde9607814db9c10738f329b1
+                  <div class="input-box">
+                    <span class="details">Vehicle Door</span>
+                    <input type="text" placeholder="Enter Vehicle Door" required>
+                  </div>
+<<<<<<< HEAD
+                  <!-- Input for Vehicle Seat -->
+                  <div class="input-box">
+                    <span class="details">Vehicle Seat</span>
+                    <input type="text" placeholder="Enter Vehicle Seat" required>
+                  </div>
+                </div>
+                <div class="fuel-details">
+                  <!-- Radio buttons for fuel selection -->
+                  <input type="radio" name="VehicleFuel" id="dot-1">
+                  <input type="radio" name="VehicleFuel" id="dot-2">
+                  <input type="radio" name="VehicleFuel" id="dot-3">
+                  <input type="radio" name="VehicleFuel" id="dot-4">
+                  <input type="radio" name="VehicleFuel" id="dot-5">
+                  <span class="fuel-title">Vehicle Fuel</span>
+                  <div class="category">
+                    <!-- Label for GASOLINE -->
+                    <label for="dot-1">
+                      <span class="dot one"></span>
+                      <span class="fuel-type">GASOLINE</span>
+                    </label>
+                    <label for="dot-2">
+                      <span class="dot two"></span>
+                      <span class="fuel-type">HYBRID</span>
+                    </label>
+                    <label for="dot-3">
+                      <span class="dot three"></span>
+                      <span class="fuel-type">ELECTRIC</span>
+                    </label>
+                    <label for="dot-4">
+                      <span class="dot four"></span>
+                      <span class="fuel-type">DIESEL</span>
+                    </label>
+                    <label for="dot-5">
+                      <span class="dot five"></span>
+                      <span class="fuel-type">GAS</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="type-details">
+                  <span class="type-title">Vehicle Type</span>
+                  <td>
+                    <select class="spec-select new-vehicle-status">
+=======
+                  <!-- Input for Confirm Password -->
+                  <div class="input-box">
+                    <span class="details">Vehicle Seat</span>
+                    <input type="text" placeholder="Confirm Vehicle Seat" required>
+                  </div>
+                </div>
+                <div class="gender-details">
+                  <!-- Radio buttons for gender selection -->
+                  <input type="radio" name="gender" id="dot-1">
+                  <input type="radio" name="gender" id="dot-2">
+                  <input type="radio" name="gender" id="dot-3">
+                  <input type="radio" name="gender" id="dot-4">
+                  <input type="radio" name="gender" id="dot-5">
+                  <span class="gender-title">Vehicle Fuel</span>
+                  <div class="category">
+                    <!-- Label for Male -->
+                    <label for="dot-1">
+                      <span class="dot one"></span>
+                      <span class="gender">GASOLINE</span>
+                    </label>
+                    <!-- Label for Female -->
+                    <label for="dot-2">
+                      <span class="dot two"></span>
+                      <span class="gender">HYBRID</span>
+                    </label>
+                    <!-- Label for Prefer not to say -->
+                    <label for="dot-3">
+                      <span class="dot three"></span>
+                      <span class="gender">ELECTRIC</span>
+                    </label>
+                    <label for="dot-4">
+                      <span class="dot four"></span>
+                      <span class="gender">DIESEL</span>
+                    </label>
+                    <label for="dot-5">
+                      <span class="dot five"></span>
+                      <span class="gender">GAS</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="gender-details">
+                  <span class="gender-title">Vehicle Type</span>
+                  <td>
+                    <select class="spec-select new-product-status">
+>>>>>>> ead7416694ce765dde9607814db9c10738f329b1
+                      <option value="SEDAN" selected>SEDAN</option>
+                      <option value="SUV">SUV</option>
+                      <option value="HATCHBACK">HATCHBACK</option>
+                      <option value="LUXURY">LUXURY</option>
+                      <option value="MINIVAN">MINIVAN</option>
+                      <option value="SPORTCAR">SPORTCAR</option>
+                      <option value="OTHER">OTHER</option>
+                    </select>
+                  </td>
+                </div>
+                
+                <!-- Submit button -->
+                <div class="button">
+<<<<<<< HEAD
+                <input type="submit" value="Register">
+              </div>
+            </form>
+          </div>
+        </div> 
+=======
+          <input type="submit" value="Register">
+        </div>
+      </form>
+    </div>
+  </div> 
+>>>>>>> ead7416694ce765dde9607814db9c10738f329b1
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="/js/vehicles.js"></script>
+</body>
 
 <%- include('includes/footer') %>

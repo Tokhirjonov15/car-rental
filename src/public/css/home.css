@@ -1,0 +1,36 @@
+.home-container {
+  position: relative;
+  width: auto;
+  height: auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: url("https://www.3ds.com/assets/invest/2023-02/3d-model-car-1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;     
+  background-position: center;
+}
+
+
+.home-container a {
+  text-decoration: none;
+  color: #efe7e7;
+}
+
+.home-container .nav-item a {
+  color: #efe7e7;
+}
+
+.home-container .nav-item a.disabled {
+  color: #898071;
+}
+
+.home-container .navigation-menu {
+  position: relative;
+  z-index: 10000;
+  color: #efefee;
+  font-size: 40px;
+  font-family: monospace;
+}
+

@@ -1,38 +1,46 @@
 <%- include('includes/header') %>
 
+<link rel="stylesheet" type="text/css" href="/css/login.css" />
 
 <body>
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>John</td>
-      <td>Doe</td>
-      <td>@social</td>
-    </tr>
-  </tbody>
-</table>
-</body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form class="login-container" action="/admin/login" METHOD="POST">
+        <h3>WELCOME BACK!</h3>
+        <div class="login-top">
+        <div>Go back? <a href="/admin" style="color: #eef60b">HOME</a></div>
+        <p>
+          Not registered yet?
+          <a href="/admin/signup" style="color: #eef60b">SIGN UP</a>
+        </p>
+      </div>
 
+        <label for="username">UserId</label>
+        <input
+            type="text"
+            name="userId"
+            class="member-nick"
+            placeholder="Username"
+            value=""
+            required
+          />
+        <label for="password">Password</label>
+        <input
+            type="password"
+            name="userPassword"
+            class="member-password"
+            placeholder="Password"
+            value=""
+            required
+          />
+        <button class="btn" name="login" type="submit">LOG IN</button>
+        <div class="social">
+          <div class="go"><i class="fab fa-google"></i>  Google</div>
+          <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
+        </div>
+    </form>
+</body>
 
 <%- include('includes/footer') %>
