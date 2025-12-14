@@ -81,36 +81,72 @@
         </div>
         <div class="form-container">
           <div class="title">Vehicle Details</div>
-            <form action="#">
+            <form
+              onsubmit="return validateForm()"
+              action="/admin/vehicle/create"
+              method="POST"
+              class="vehicle-container"
+              enctype="multipart/form-data"
+            >
               <div class="vehicle-details">
                 <div class="input-box">
                   <span class="details">Vehicle Name</span>
-                  <input type="text" placeholder="Enter Vehicle Name" required>
+                  <input 
+                    type="text" 
+                    placeholder="Enter Vehicle Name"
+                    name="vehicleName"
+                    class="vehicle-name" 
+                    required
+                  >
                 </div>
                 <div class="input-box">
                   <span class="details">Rent Price per Day</span>
-                  <input type="text" placeholder="Enter Rent Price per Day" required>
+                  <input 
+                    type="text" 
+                    placeholder="Enter Price per Day"
+                    name="vehiclePrice"
+                    class="vehicle-price" 
+                    required
+                  >
                 </div>
                 <div class="input-box">
                   <span class="details">Vehicle Mile</span>
-                  <input type="text" placeholder="Enter Vehicle Mile" required>
+                  <input 
+                    type="text" 
+                    placeholder="Enter Vehicle Mile"
+                    name="vehicleMile"
+                    class="vehicle-mile" 
+                    required
+                  >
                 </div>
                 <div class="input-box">
                   <span class="details">Vehicle Door</span>
-                  <input type="text" placeholder="Enter Vehicle Door" required>
+                  <input 
+                    type="text" 
+                    placeholder="Enter Vehicle Door"
+                    name="vehicleDoor"
+                    class="vehicle-door" 
+                    required
+                  >
                 </div>
                 <div class="input-box">
                   <span class="details">Vehicle Seat</span>
-                  <input type="text" placeholder="Enter Vehicle Seat" required>
+                  <input 
+                    type="text" 
+                    placeholder="Enter Vehicle Seat"
+                    name="vehicleSeat"
+                    class="vehicle-seat" 
+                    required
+                  >
                 </div>
               </div>
               <div class="fuel-details">
                 <!-- Radio buttons for fuel selection -->
-                <input type="radio" name="VehicleFuel" id="dot-1">
-                <input type="radio" name="VehicleFuel" id="dot-2">
-                <input type="radio" name="VehicleFuel" id="dot-3">
-                <input type="radio" name="VehicleFuel" id="dot-4">
-                <input type="radio" name="VehicleFuel" id="dot-5">
+                <input type="radio" name="vehicleFuel" id="dot-1" value="GASOLINE">
+                <input type="radio" name="vehicleFuel" id="dot-2" value="HYBRID">
+                <input type="radio" name="vehicleFuel" id="dot-3" value="ELECTRIC">
+                <input type="radio" name="vehicleFuel" id="dot-4" value="DIESEL">
+                <input type="radio" name="vehicleFuel" id="dot-5" value="GAS">
                 <span class="fuel-title">Vehicle Fuel</span>
                 <div class="category">
                   <!-- Label for GASOLINE -->
@@ -139,7 +175,7 @@
               <div class="type-details">
                 <span class="type-title">Vehicle Type</span>
                 <td>
-                  <select class="spec-select new-vehicle-status">
+                  <select name="vehicleCollection" class="vehicle-collection">
                     <option value="SEDAN" selected>SEDAN</option>
                     <option value="SUV">SUV</option>
                     <option value="HATCHBACK">HATCHBACK</option>
@@ -159,9 +195,10 @@
                     <input
                       type="file"
                       id="file"
-                      name="productImages"
+                      name="vehicleImages"
                       class="image-one"
                       required
+                      onchange="previewFileHandler(this, 1)"
                     />
                   </div>
                   <div class="upload-img-box">
@@ -169,8 +206,9 @@
                     <input
                       type="file"
                       id="file"
-                      name="productImages"
+                      name="vehicleImages"
                       class="image-two"
+                      onchange="previewFileHandler(this, 2)"
                     />
                   </div>
                   <div class="upload-img-box">
@@ -178,8 +216,9 @@
                     <input
                       type="file"
                       id="file"
-                      name="productImages"
+                      name="vehicleImages"
                       class="image-three"
+                      onchange="previewFileHandler(this, 3)"
                     />
                   </div>
                   <div class="upload-img-box">
@@ -187,8 +226,9 @@
                     <input
                       type="file"
                       id="file"
-                      name="productImages"
+                      name="vehicleImages"
                       class="image-four"
+                      onchange="previewFileHandler(this, 4)"
                     />
                   </div>
                   <div class="upload-img-box">
@@ -196,18 +236,22 @@
                     <input
                       type="file"
                       id="file"
-                      name="productImages"
+                      name="vehicleImages"
                       class="image-five"
+                      onchange="previewFileHandler(this, 5)"
                     />
                   </div>
-                  <input name="restaurantIid" class="restaurant-id" hidden />
+                  <input name="companyId" class="company-id" hidden />
                 </div>
               </div>
               <div class="button">
-              <input type="submit" value="Register">
-            </div>
-          </form>
-        </div>
+                <input type="submit" value="Register">
+              </div>
+              <button class="btn btn-primary" id="cancel-btn">
+                  Cancel
+              </button>
+            </form>
+          </div>
         </div> 
       </div>
   </div>

@@ -90,6 +90,7 @@
 }
 
 .form-container {
+  display: none;
   max-width: 700px;
   width: 100%;
   background-color: #fff;
@@ -251,6 +252,13 @@ form input[type="radio"] {
   top: 0px;
   height: 100%;
   cursor: pointer;
+}
+
+form #cancel-btn {
+  position: absolute;
+  left: 0;
+  bottom: -410px; /* pastga tushadi */
+  width: 100%;
 }
 
 form .button {
