@@ -14,7 +14,7 @@ vehicleController.getAllVehicles = async (req: Request, res: Response) => {
         const data = await vehicleService.getAllVehicles();
         console.log("Data:", data);
         
-        res.render("vehicles", {vehicles: data});
+        res.render("vehicles", { vehicles: data });
     } catch (err) {
         console.log("Error, getAllVehicles:", err);
         if (err instanceof Errors) res.status(err.code).json(err);

@@ -46,24 +46,29 @@
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <!--  LOOP PRODUCTS: START  -->
+            
+            <% vehicles.map(function(value, key) { %>
             <tbody style="background: white">
-              <td>1</td>
-              <td>Kia K5</td>
-              <td>SEDAN</td>
-              <td>$30</td>
-              <td>GASOLINE</td>
-              <td>4</td>
-              <td>5</td>
-              <td>15000</td>
+              <td><%= key + 1 %></td>
+              <td><%= value.vehicleName %></td>
+              <td><%= value.vehicleCollection %></td>
+              <td><%= value.vehiclePrice %></td>
+              <td><%= value.vehicleFuel %></td>
+              <td><%= value.vehicleDoor %></td>
+              <td><%= value.vehicleSeat %></td>
+              <td><%= value.vehicleMile %></td>
               <td>
-                <select class="spec-select new-vehicle-status">
-                  <option value="PAUSE" selected>PAUSE</option>
-                  <option value="AVAILABLE">AVAILABLE</option>
+                <select 
+                  class="spec-select new-vehicle-status" 
+                  id="<%= value._id %>"
+                >
+                  <option value="PAUSE" <%= value.vehicleStatus === 'PAUSE' ? 'selected' : '' %> >PAUSE</option>
+                  <option value="AVAILABLE" <%= value.vehicleStatus === 'AVAILABLE' ? 'selected' : '' %> >AVAILABLE</option>
                 </select>
               </td>
             </tbody>
-            <!--  LOOP PRODUCTS: END  -->
+            <% }) %>
+            
           </table>
           <div
             class="long-input"
