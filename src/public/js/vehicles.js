@@ -10,6 +10,26 @@ $(function () {
         $(".form-container").slideToggle(100);
         $("#process-btn").css("display", "flex");
     });
+
+    $(".new-vehicle-status").on("change", async function (e) {
+        const id = e.target.id;
+        const vehicleStatus = $(`#${id}.new-vehicle-status`).val();
+        console.log("id:", id);
+        console.log('vehicleStatus:', vehicleStatus);
+
+        try {
+            const response = await axios.post(`/admin/vehicle/${id}`, {vehicleStatus: vehicleStatus});
+            console.log("response:", response);
+            const result = response.data;
+            if (result.data) {
+                console.log("Vehicle updated successfully!");
+                $(".new-vehicle-status").blur();
+            } else alert("Vehicle update failed!");
+        } catch (err) {
+            console.log(err);
+            alert("Vehicle update failed");
+        }
+    })
 });
 
 function validateForm () {
