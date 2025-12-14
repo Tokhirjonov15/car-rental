@@ -4,7 +4,11 @@
 
 <body>
   <div class="signup-container">
-    <form action="/admin/signup" method="POST" enctype="multipart/form-data">
+    <form 
+      onsubmit="return validateSignupForm()"
+      action="/admin/signup" 
+      method="POST"
+    >
       <div class="signup-frame" style="width: 650px">
         <div class="signup-top">
             <h2 class="signup-title">JOIN US!</h2>
@@ -39,7 +43,7 @@
             <input
               type="text"
               name="userAge"
-              class="member-phone"
+              class="member-age"
               placeholder="Your age"
               value=""
             />
@@ -66,7 +70,7 @@
           </div>
         </div>
 
-        <input name="memberType" value="RESTAURANT" hidden />
+        <input name="userType" value="COMPANY" hidden />
 
         <button class="btn" name="signup" type="submit">
           SIGN UP

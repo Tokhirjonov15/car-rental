@@ -11,11 +11,7 @@ routerAdmin
   .post("/login", companyController.processLogin);
 routerAdmin
   .get("/signup", companyController.getSignup)
-  .post(
-    "/signup",
-    makeUploader("users").single("userImage"), 
-    companyController.processSignup
-  );
+  .post("/signup", companyController.processSignup);
 
 routerAdmin.get("/logout", companyController.logout);
 routerAdmin.get("/check-me", companyController.checkAuthSession);

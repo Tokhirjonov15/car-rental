@@ -39,29 +39,30 @@ companyController.getSignup = (req: Request, res: Response) => {
 };
 
 companyController.processSignup = async (req: AdminRequest, res: Response) => {
-    try {
-        console.log("processSignup:");
-        const file = req.file;
-        if (!file) throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHNG_WENT_WRONG); 
+  try {
+    console.log("processSignup:");
 
-        const newUser: UserInput = req.body;
-        newUser.userImage = file?.path;
-        newUser.userType = UserType.COMPANY;
-        const result = await userService.processSignup(newUser);
-        
-        req.session.user = result;
-        req.session.save(function() {
-            res.redirect("/admin/vehicle/all");
-        }); 
-    } catch (err) {
-        console.log("ERROR, processSignup:", err);
-        const message = 
-          err instanceof Errors ? err.message : Message.SOMETHNG_WENT_WRONG;
-        res.send(
-            `<script> alert("${message}"); window.location.replace('admin/signup') </script>`
-        );
-    }
+    const newUser: UserInput = req.body;
+    console.log("BODY:", req.body);
+    newUser.userType = UserType.COMPANY;
+
+    const result = await userService.processSignup(newUser);
+
+    req.session.user = result;
+    req.session.save(function () {
+      res.redirect("/admin/vehicle/all");
+    });
+  } catch (err) {
+    console.log("ERROR, processSignup:", err);
+    const message =
+      err instanceof Errors ? err.message : Message.SOMETHNG_WENT_WRONG;
+
+    res.send(
+      `<script>alert("${message}"); window.location.replace('/admin/signup')</script>`
+    );
+  }
 };
+
 
 companyController.processLogin = async (req: AdminRequest, res: Response) => {
     try {
@@ -78,7 +79,7 @@ companyController.processLogin = async (req: AdminRequest, res: Response) => {
         const message = 
           err instanceof Errors ? err.message : Message.SOMETHNG_WENT_WRONG;
         res.send(
-            `<script> alert("${message}"); window.location.replace('admin/login') </script>`
+            `<script> alert("${message}"); window.location.replace('/admin/login') </script>`
         );
     }
 };
