@@ -9,6 +9,7 @@ export interface Vehicle {
     vehicleDoor: number;
     vehicleSeat: number;
     vehicleMile?: number;
+    vehicleRating: number;
     vehicleImages: string[];
 }
 

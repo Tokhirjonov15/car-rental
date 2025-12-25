@@ -1,4 +1,5 @@
 import { shapeIntoMongooseObjectId } from "../libs/config";
+import { VehicleStatus } from "../libs/enums/vehicle.enum";
 import Errors, { HttpCode, Message } from "../libs/Error";
 import { Vehicle, VehicleInput, VehicleUpdateInput } from "../libs/types/vehicle";
 import VehicleModel from "../schemas/Vehicle.model";
@@ -39,6 +40,22 @@ class VehicleService {
         if (!result) 
             throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
         console.log("result:", result);
+        return result;
+    }
+
+    public async getTopVehicles(): Promise<Vehicle[]> {
+        const result = await this.vehicleModel
+            .find({
+                vehicleStatus: VehicleStatus.AVAILABLE,
+            })
+            .sort({ vehicleRating: -1, createdAt: -1 })
+            .limit(4)
+            .exec();
+        
+        if (!result || result.length === 0) {
+            throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+        }
+
         return result;
     }
 }

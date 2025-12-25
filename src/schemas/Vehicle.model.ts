@@ -45,6 +45,11 @@ const vehicleSchema = new Schema (
             type: Number,
         },
 
+        vehicleRating: {
+            type: Number,
+            default: 0
+        },
+
         vehicleImages: {
             type: [String],
             default: [],

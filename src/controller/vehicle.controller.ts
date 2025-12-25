@@ -48,6 +48,18 @@ vehicleController.createNewVehicle = async (req: AdminRequest, res: Response) =>
     }
 };
 
+vehicleController.getTopVehicles = async (req: Request, res: Response) => {
+    try {
+        console.log("getTopVehicles");
+        const result = await vehicleService.getTopVehicles();
+
+        res.status(HttpCode.OK).json(result);
+    } catch (err) {
+        console.log("Error, getTopVehicles:", err);
+        if (err instanceof Errors) res.status(err.code).json(err);
+        else res.status(Errors.standart.code).json(Errors.standart);
+    }
+}
 
 vehicleController.updateChosenVehicle = async (req: Request, res: Response) => {
     try {

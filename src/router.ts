@@ -1,6 +1,7 @@
 import express, { Response, Request } from "express";
 import userController from "./controller/user.controller";
 import makeUploader from "./libs/utils/uploader";
+import vehicleController from "./controller/vehicle.controller";
 const router = express.Router();
 
 /** USER */
@@ -22,5 +23,8 @@ router.post(
     makeUploader("users").single("userImage"),
     userController.updateUser
 );
+
+/** VEHICLES */
+router.get("/vehicle/top-vehicles", vehicleController.getTopVehicles);
 
 export default router;
