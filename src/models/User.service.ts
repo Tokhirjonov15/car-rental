@@ -40,12 +40,18 @@ class UserService {
     public async login(input: LoginInput): Promise<User> {
         const user = await this.userModel
           .findOne(
-            {userId: input.userId},
-            {userId: 1, userPassword: 1}
+            {
+                userId: input.userId,
+                userStatus: { $ne: UserStatus.BLOCK},
+            },
+            {userId: 1, userPassword: 1, userStatus: 1}
           )
           .exec();
         if (!user) 
             throw new Errors (HttpCode.UNAUTHORIZED, Message.NO_MEMBER_NICK);
+        else if (user.userStatus === UserStatus.BLOCK) {
+            throw new Errors(HttpCode.FORBIDDEN, Message.BLOCKED_USER);
+        }
 
         const isMatch = await bcrypt.compare(
             input.userPassword,
