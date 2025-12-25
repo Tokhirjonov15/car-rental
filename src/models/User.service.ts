@@ -1,5 +1,5 @@
 import { shapeIntoMongooseObjectId } from "../libs/config";
-import { UserType } from "../libs/enums/user.enum";
+import { UserStatus, UserType } from "../libs/enums/user.enum";
 import Errors, { HttpCode, Message } from "../libs/Error";
 import { LoginInput, User, UserInput, UserUpdateInput } from "../libs/types/user";
 import UserModel from "../schemas/User.model";
@@ -49,7 +49,17 @@ class UserService {
             throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
         }
 
-        return result;
+        return result.toJSON() as any as User;
+    }
+
+    public async getUserDetail(user: User): Promise<User> {
+        const userId = shapeIntoMongooseObjectId(user._id);
+        const result = await this.userModel
+          .findOne({ _id: userId, userStatus: UserStatus.ACTIVE })
+          .exec();
+        if (!result) 
+            throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+        return result.toJSON() as any as User;
     }
     
     public async processSignup(input: UserInput): Promise<User> {
@@ -65,7 +75,7 @@ class UserService {
         try {
             const result = await this.userModel.create(input);
             result.userPassword = "";
-            return result;
+            return result.toJSON() as any as User;
         } catch (err) {
             throw new Errors (HttpCode.BAD_REQUEST, Message.CREATE_FAILED)
         }
@@ -94,7 +104,7 @@ class UserService {
             throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
         }
 
-        return result;
+        return result.toJSON() as any as User;
     }
 
     public async getUsers(): Promise<User[]> {
@@ -104,7 +114,7 @@ class UserService {
         if (!result) 
             throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
-        return result;
+        return result.map(user => user.toJSON() as any as User);
     }
 
     public async updateChosenUser(input: UserUpdateInput): Promise<User> {
@@ -122,7 +132,7 @@ class UserService {
         if (!result) {
             throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
         }
-        return result;
+        return result.toJSON() as any as User;
     }
 
 }

@@ -56,11 +56,27 @@ userController.logout = (req: ExtendsRequest, res: Response) => {
         res.cookie("accessToken", null, { maxAge: 0, httpOnly: true });
         res.status(HttpCode.OK).json({ logout: true });
     } catch (err) {
-       console.log("ERROR, logout:", err);
+        console.log("ERROR, logout:", err);
         if (err instanceof Errors) res.status(err.code).json(err);
         else res.status(Errors.standart.code).json(Errors.standart); 
     }
 };
+
+userController.getUserDetail = async (
+    req: ExtendsRequest, 
+    res: Response
+) => {
+    try {
+        console.log("getUserDetail");
+        const result = await userService.getUserDetail(req.user);
+
+        res.status(HttpCode.OK).json(result);
+    } catch (err) {
+        console.log("ERROR, getUserDetail:", err);
+        if (err instanceof Errors) res.status(err.code).json(err);
+        else res.status(Errors.standart.code).json(Errors.standart); 
+    }
+}
 
 userController.verifyAuth = async (
     req: ExtendsRequest, 

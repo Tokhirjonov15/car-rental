@@ -10,6 +10,10 @@ router.post(
     userController.verifyAuth, 
     userController.logout 
 );
-router.post("/user/detail", userController.verifyAuth);
+router.get(
+    "/user/detail", 
+    userController.verifyAuth,
+    userController.getUserDetail
+);
 
 export default router;

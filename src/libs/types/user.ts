@@ -4,7 +4,7 @@ import { Request } from 'express';
 import { ObjectId } from "mongoose";
 
 export interface User {
-    [x: string]: any;
+    _id: ObjectId;
     userType: UserType;
     userStatus: UserStatus;
     userId: string;
