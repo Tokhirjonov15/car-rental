@@ -108,31 +108,22 @@ class UserService {
     }
 
     public async updateChosenUser(input: UserUpdateInput): Promise<User> {
-    const { _id, ...updateData } = input;
-    
-    // Validation
-    if (!_id) {
-        throw new Errors(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED);
+        const { _id, ...updateData } = input;
+        if (!_id) {
+            throw new Errors(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED);
+        }
+        const result = await this.userModel
+            .findByIdAndUpdate(
+                _id,
+                { $set: updateData },
+                { new: true, runValidators: true }
+            )
+            .exec();
+        if (!result) {
+            throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
+        }
+        return result;
     }
-    
-    // Update
-    const result = await this.userModel
-        .findByIdAndUpdate(
-            _id,
-            { $set: updateData },  // 👈 Faqat berilgan fieldlarni yangilaydi
-            { 
-                new: true,          // Yangilangan documentni qaytaradi
-                runValidators: true // Schema validationni ishga tushiradi
-            }
-        )
-        .exec();
-        
-    if (!result) {
-        throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
-    }
-    
-    return result;
-}
 
 }
 

@@ -1,7 +1,7 @@
-import express, { Response, Request } from "express";
+import express, { Response, Request, NextFunction } from "express";
 import { T } from "../libs/types/common";
 import UserService from "../models/User.service";
-import { LoginInput, User, UserInput } from "../libs/types/user";
+import { ExtendsRequest, LoginInput, User, UserInput } from "../libs/types/user";
 import Errors, { HttpCode, Message } from "../libs/Error";
 import AuthService from "../models/Auth.service";
 import { AUTH_TIMER } from "../libs/config";
@@ -50,16 +50,30 @@ userController.login = async (req: Request, res: Response) => {
     }
 };
 
-userController.verifyAuth = async (req: Request, res: Response) => {
+userController.logout = (req: ExtendsRequest, res: Response) => {
     try {
-        let user = null;
-        const token = req.cookies["accessToken"];
-        if (token) user = await authService.checkAuth(token);
+        console.log("logout");
+        res.cookie("accessToken", null, { maxAge: 0, httpOnly: true });
+        res.status(HttpCode.OK).json({ logout: true });
+    } catch (err) {
+       console.log("ERROR, logout:", err);
+        if (err instanceof Errors) res.status(err.code).json(err);
+        else res.status(Errors.standart.code).json(Errors.standart); 
+    }
+};
 
-        if (!user)
+userController.verifyAuth = async (
+    req: ExtendsRequest, 
+    res: Response, 
+    next: NextFunction
+) => {
+    try {
+        const token = req.cookies["accessToken"];
+        if (token) req.user = await authService.checkAuth(token);
+        if (!req.user)
             throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
-        console.log("user:", user);
-        res.status(HttpCode.OK).json({ user: user });
+        
+        next();
     } catch (err) {
         console.log("ERROR, verifyAuth:", err);
         if (err instanceof Errors) res.status(err.code).json(err);
