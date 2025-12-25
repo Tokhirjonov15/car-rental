@@ -14,6 +14,15 @@ class UserService {
 
     /** SPA */
 
+    public async getCompany(): Promise<User> {
+        const result = await this.userModel
+          .findOne({ userType: UserType.COMPANY })
+          .exec();
+        if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+         
+        return result.toJSON() as any as User;
+    }
+
     public async signup(input: UserInput): Promise<User> {
         const salt = await bcrypt.genSalt();
         input.userPassword = await bcrypt.hash(input.userPassword, salt);

@@ -5,6 +5,7 @@ import vehicleController from "./controller/vehicle.controller";
 const router = express.Router();
 
 /** USER */
+router.get("/user/company", userController.getCompany);
 router.post("/user/login", userController.login);
 router.post("/user/signup", userController.signup);
 router.post(
