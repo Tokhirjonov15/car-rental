@@ -25,18 +25,14 @@ vehicleController.getAllVehicles = async (req: Request, res: Response) => {
 vehicleController.createNewVehicle = async (req: AdminRequest, res: Response) => {
     try {
         console.log("createNewVehicle");
-        // if (!req.files?.length)
-        //     throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
 
-        const data: VehicleInput = req.body;
-        const files = req.files as Express.Multer.File[];
+        const data: VehicleInput = req.body,
+          files = req.files as Express.Multer.File[];
         console.log("req.files:", req.files);
         
-
         data.vehicleImages = files.map(ele => {
             return ele.path.replace(/\\/g, "/");
         });
-        
         await vehicleService.createNewVehicle(data);
         res.send(
             `<script>alert("Successfull creation!"); window.location.replace("/admin/vehicle/all")</script>`

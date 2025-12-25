@@ -108,14 +108,32 @@ class UserService {
     }
 
     public async updateChosenUser(input: UserUpdateInput): Promise<User> {
-        const userId = shapeIntoMongooseObjectId(input._id);
-        const result = await this.userModel
-          .findOneAndUpdate({ _id: input._id }, input, { new: true })
-          .exec();
-        if (!result) 
-            throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
-        return result;
+    const { _id, ...updateData } = input;
+    
+    // Validation
+    if (!_id) {
+        throw new Errors(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED);
     }
+    
+    // Update
+    const result = await this.userModel
+        .findByIdAndUpdate(
+            _id,
+            { $set: updateData },  // 👈 Faqat berilgan fieldlarni yangilaydi
+            { 
+                new: true,          // Yangilangan documentni qaytaradi
+                runValidators: true // Schema validationni ishga tushiradi
+            }
+        )
+        .exec();
+        
+    if (!result) {
+        throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
+    }
+    
+    return result;
+}
+
 }
 
 export default UserService;

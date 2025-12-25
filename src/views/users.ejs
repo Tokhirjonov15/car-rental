@@ -63,35 +63,32 @@
             
             <% users.map(function (value, index) { %>
               <tbody style="background: white">
-              <td><%= index + 1 %></td>
-              <td><%= value.userId %></td>
-              <td><%= value.userPhone %></td>
-              <td style="width: 13%">
-                <select class="spec-select member-status">
-                  <option 
-                    value="ACTIVE" <%= value.memberStatus === 'ACTIVE' 
-                    ? 'selected'
-                    : "" %> 
-                  >
-                    ACTIVE
-                  </option>
-                  <option 
-                    value="BLOCK" <%= value.memberStatus === 'BLOCK' 
-                    ? 'selected'
-                    : "" %> 
-                  >
-                    BLOCK
-                  </option>
-                  <option 
-                    value="PAUSE" <%= value.memberStatus === 'PAUSE' 
-                    ? 'selected'
-                    : "" %> 
-                  >
-                    PAUSE
-                  </option>
-                </select>
-              </td>
-            </tbody>
+                <td><%= index + 1 %></td>
+                <td><%= value.userId %></td>
+                <td><%= value.userPhone %></td>
+                <td style="width: 13%">
+                  <select class="spec-select member-status" id="<%= value._id %>">
+                    <option 
+                      value="ACTIVE" 
+                      <%= value.userStatus === 'ACTIVE' ? 'selected' : "" %>
+                    >
+                      ACTIVE
+                    </option>
+                    <option 
+                      value="BLOCK" 
+                      <%= value.userStatus === 'BLOCK' ? 'selected' : "" %>
+                    >
+                      BLOCK
+                    </option>
+                    <option 
+                      value="PAUSE" 
+                      <%= value.userStatus === 'PAUSE' ? 'selected' : "" %>
+                    >
+                      PAUSE
+                    </option>
+                  </select>
+                </td>
+              </tbody>
             <% }) %>
             
           </table>

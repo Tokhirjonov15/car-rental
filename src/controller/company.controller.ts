@@ -67,8 +67,8 @@ companyController.processSignup = async (req: AdminRequest, res: Response) => {
 companyController.processLogin = async (req: AdminRequest, res: Response) => {
     try {
         console.log("processLogin");
-        const input: LoginInput = req.body;   
-        const result = await userService.processLogin(input); 
+        const input: LoginInput = req.body,   
+          result = await userService.processLogin(input); 
 
         req.session.user = result;
         req.session.save(function() {
@@ -111,9 +111,21 @@ companyController.getUsers = async (req: Request, res: Response) => {
 
 companyController.updateChosenUser = async (req: Request, res: Response) => {
     try {
-        console.log("updateChosenUser");
+        console.log("updateChosenUser - Request body:", req.body);
+        
+        if (!req.body._id) {
+            return res.status(HttpCode.BAD_REQUEST).json({
+                message: "User ID is required"
+            });
+        }
+        
         const result = await userService.updateChosenUser(req.body);
-        res.status(HttpCode.OK).json({ data: result });
+        console.log("Update successful:", result);
+        
+        res.status(HttpCode.OK).json({ 
+            message: "User updated successfully",
+            data: result 
+        });
     } catch (err) {
         console.log("ERROR, updateChosenUser:", err);
         if (err instanceof Errors) res.status(err.code).json(err);

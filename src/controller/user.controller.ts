@@ -3,16 +3,20 @@ import { T } from "../libs/types/common";
 import UserService from "../models/User.service";
 import { LoginInput, User, UserInput } from "../libs/types/user";
 import Errors from "../libs/Error";
+import AuthService from "../models/Auth.service";
 
 const userService = new UserService;
+const authService = new AuthService;
 const userController: T = {};
 
 userController.signup = async (req: Request, res: Response) => {
     try {
         console.log("signup");
         const input: UserInput = req.body,
-          result: User = await userService.signup(input);
-
+          result: User = await userService.signup(input),
+          token = await authService.createToken(result);
+        console.log("token:", token);
+        
         res.json({member: result});
     } catch (err) {
         console.log("ERROR, signup:", err);
@@ -25,7 +29,9 @@ userController.login = async (req: Request, res: Response) => {
     try {
         console.log("login");
         const input: LoginInput = req.body,
-          result = await userService.login(input);
+          result = await userService.login(input),
+          token = await authService.createToken(result);
+        console.log("token:", token);
 
         res.json({member: result});
     } catch (err) {
