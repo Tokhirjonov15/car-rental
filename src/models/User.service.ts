@@ -12,6 +12,8 @@ class UserService {
         this.userModel = UserModel;
     }
 
+    /** SPA */
+
     public async signup(input: UserInput): Promise<User> {
         const salt = await bcrypt.genSalt();
         input.userPassword = await bcrypt.hash(input.userPassword, salt);
@@ -61,6 +63,20 @@ class UserService {
             throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
         return result.toJSON() as any as User;
     }
+
+    public async updateUser(
+        user: User, 
+        input: UserUpdateInput
+    ): Promise<User> {
+        const userId = shapeIntoMongooseObjectId(user._id);
+        const result = await this.userModel
+          .findByIdAndUpdate({ _id: userId }, input, { new: true })
+          .exec();
+        if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
+        return result.toJSON() as any as User;
+    }
+
+    /** SSR */
     
     public async processSignup(input: UserInput): Promise<User> {
         const exist = await this.userModel

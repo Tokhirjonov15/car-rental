@@ -1,5 +1,6 @@
 import express, { Response, Request } from "express";
 import userController from "./controller/user.controller";
+import makeUploader from "./libs/utils/uploader";
 const router = express.Router();
 
 /** USER */
@@ -14,6 +15,12 @@ router.get(
     "/user/detail", 
     userController.verifyAuth,
     userController.getUserDetail
+);
+router.post(
+    "/user/update",
+    userController.verifyAuth,
+    makeUploader("users").single("userImage"),
+    userController.updateUser
 );
 
 export default router;

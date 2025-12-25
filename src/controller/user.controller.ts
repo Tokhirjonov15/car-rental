@@ -1,7 +1,7 @@
 import express, { Response, Request, NextFunction } from "express";
 import { T } from "../libs/types/common";
 import UserService from "../models/User.service";
-import { ExtendsRequest, LoginInput, User, UserInput } from "../libs/types/user";
+import { ExtendsRequest, LoginInput, User, UserInput, UserUpdateInput } from "../libs/types/user";
 import Errors, { HttpCode, Message } from "../libs/Error";
 import AuthService from "../models/Auth.service";
 import { AUTH_TIMER } from "../libs/config";
@@ -73,6 +73,21 @@ userController.getUserDetail = async (
         res.status(HttpCode.OK).json(result);
     } catch (err) {
         console.log("ERROR, getUserDetail:", err);
+        if (err instanceof Errors) res.status(err.code).json(err);
+        else res.status(Errors.standart.code).json(Errors.standart); 
+    }
+};
+
+userController.updateUser = async (req: ExtendsRequest, res: Response) => {
+    try {
+        console.log("updateUser");
+        const input: UserUpdateInput = req.body;
+        if (req.file) input.userImage = req.file.path.replace(/\\/, "/");
+        const result = await userService.updateUser(req.user, input);
+
+        res.status(HttpCode.OK).json(result);
+    } catch (err) {
+        console.log("ERROR, updateUser:", err);
         if (err instanceof Errors) res.status(err.code).json(err);
         else res.status(Errors.standart.code).json(Errors.standart); 
     }
