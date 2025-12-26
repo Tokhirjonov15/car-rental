@@ -11,6 +11,7 @@ export interface Vehicle {
     vehicleMile?: number;
     vehicleRating: number;
     vehicleImages: string[];
+    vehicleViews: number;
 }
 
 export interface VehicleInquiry {
@@ -31,6 +32,7 @@ export interface VehicleInput {
     vehicleSeat: number;
     vehicleMile?: number;
     vehicleImages?: string[];
+    vehicleViews?: number;
 }
 
 export interface VehicleUpdateInput {
@@ -43,4 +45,5 @@ export interface VehicleUpdateInput {
     vehicleSeat?: number;
     vehicleMile?: number;
     vehicleImages?: string[];
+    vehicleViews?: number;
 }

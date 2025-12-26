@@ -54,6 +54,11 @@ const vehicleSchema = new Schema (
             type: [String],
             default: [],
         },
+
+        vehicleViews: {
+            type: Number,
+            default: 0,
+        }
     },
     {
         collection: "vehicles",
