@@ -5,12 +5,17 @@ import Errors, { HttpCode, Message } from "../libs/Error";
 import { T } from "../libs/types/common";
 import { Vehicle, VehicleInput, VehicleInquiry, VehicleUpdateInput } from "../libs/types/vehicle";
 import VehicleModel from "../schemas/Vehicle.model";
+import { ViewGroup } from "../libs/enums/view.enum";
+import { ViewInput } from "../libs/types/view";
+import ViewService from "./View.Service";
 
 class VehicleService {
     private readonly vehicleModel;
+    public viewService;
 
     constructor() {
         this.vehicleModel = VehicleModel;
+        this.viewService = new ViewService()
     }
 
     /** SPA */
@@ -25,6 +30,7 @@ class VehicleService {
 
         // book field validation
         const validSortFields = [
+            "vehicleViews",
             "vehiclePrice", 
             "vehicleRating", 
             "createdAt"
@@ -69,13 +75,43 @@ class VehicleService {
         const vehicleId = shapeIntoMongooseObjectId(id);
 
         let result = await this.vehicleModel
-          .findOne({
-            _id: vehicleId,
-            vehicleStatus: VehicleStatus.AVAILABLE,
-          })
-          .exec();
-        if (!result)
+            .findOne({
+                _id: vehicleId,
+                vehicleStatus: VehicleStatus.AVAILABLE,
+            })
+            .lean<Vehicle>()
+            .exec();
+
+        if (!result) {
             throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+        }
+
+        if (userId) {
+            const input: ViewInput = {
+                userId,
+                viewRefId: vehicleId,
+                viewGroup: ViewGroup.VEHICLE,
+            };
+
+            const existView = await this.viewService.checkViewExistance(input);
+
+            if (!existView) {
+                await this.viewService.insertUserView(input);
+
+                const updated = await this.vehicleModel
+                    .findByIdAndUpdate(
+                        vehicleId,
+                        { $inc: { vehicleViews: 1 } },
+                        { new: true }
+                    )
+                    .lean<Vehicle>()
+                    .exec();
+
+                if (updated) {
+                    result = updated;
+                }
+            }
+        }
 
         return result;
     }
@@ -105,8 +141,9 @@ class VehicleService {
         const result = await this.vehicleModel
           .findByIdAndUpdate({ _id: id}, input, {new: true})
           .exec();
-        if (!result) 
+        if (!result) {
             throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
+        }
         console.log("result:", result);
         return result;
     }
