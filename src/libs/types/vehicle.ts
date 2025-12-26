@@ -13,6 +13,14 @@ export interface Vehicle {
     vehicleImages: string[];
 }
 
+export interface VehicleInquiry {
+    book: string;
+    page: number;
+    limit: number;
+    vehicleCollection?: VehicleCollection;
+    search?: string;
+}
+
 export interface VehicleInput {
     vehicleStatus?: VehicleStatus;
     vehicleCollection: VehicleCollection;

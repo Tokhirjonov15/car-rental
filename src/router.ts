@@ -27,5 +27,6 @@ router.post(
 
 /** VEHICLES */
 router.get("/vehicle/top-vehicles", vehicleController.getTopVehicles);
+router.get("/vehicle/all", vehicleController.getVehicles);
 
 export default router;
