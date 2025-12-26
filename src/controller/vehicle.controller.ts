@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import { T } from "../libs/types/common";
 import Errors, { HttpCode, Message } from "../libs/Error";
 import { VehicleInput, VehicleInquiry } from "../libs/types/vehicle";
-import { AdminRequest } from "../libs/types/user";
+import { AdminRequest, ExtendsRequest } from "../libs/types/user";
 import VehicleService from "../models/Vehicle.service";
 import { VehicleCollection } from "../libs/enums/vehicle.enum";
 
@@ -42,6 +42,21 @@ vehicleController.getVehicles = async (req: Request, res: Response) => {
         else res.status(Errors.standart.code).json(Errors.standart);
     }
 };
+
+vehicleController.getVehicle = async (req: ExtendsRequest, res: Response) => {
+    try {
+        console.log("getVehicle");
+        const { id } = req.params;
+        const userId = req.user?._id ?? null,
+          result = await vehicleService.getVehicle(userId, id);
+
+        res.status(HttpCode.OK).json(result);
+    } catch (err) {
+        console.log("Error, getVehicle:", err);
+        if (err instanceof Errors) res.status(err.code).json(err);
+        else res.status(Errors.standart.code).json(Errors.standart);
+    }
+}
 
 /** SSR */
 vehicleController.getAllVehicles = async (req: Request, res: Response) => {

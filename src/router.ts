@@ -28,5 +28,10 @@ router.post(
 /** VEHICLES */
 router.get("/vehicle/top-vehicles", vehicleController.getTopVehicles);
 router.get("/vehicle/all", vehicleController.getVehicles);
+router.get(
+    "/vehicle/:id",
+    userController.retriveAuth,
+    vehicleController.getVehicle
+);
 
 export default router;
