@@ -46,5 +46,10 @@ router.get(
     userController.verifyAuth,
     bookingController.getMyBookings
 );
+router.post(
+    "/booking/update",
+    userController.verifyAuth,
+    bookingController.updateBooking
+)
 
 export default router;

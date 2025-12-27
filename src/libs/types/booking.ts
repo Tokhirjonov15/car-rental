@@ -33,3 +33,8 @@ export interface BookingInquiry {
     limit: number;
     bookingStatus: BookingStatus;
 }
+
+export interface BookingUpdateInput {
+    bookingId: string;
+    bookingStatus: BookingStatus;
+}
