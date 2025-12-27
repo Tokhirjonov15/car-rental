@@ -2,6 +2,7 @@ import express, { Response, Request } from "express";
 import userController from "./controller/user.controller";
 import makeUploader from "./libs/utils/uploader";
 import vehicleController from "./controller/vehicle.controller";
+import bookingController from "./controller/booking.controller";
 const router = express.Router();
 
 /** USER */
@@ -32,6 +33,18 @@ router.get(
     "/vehicle/:id",
     userController.retriveAuth,
     vehicleController.getVehicle
+);
+
+/** BOOKING */
+router.post(
+    "/booking/create",
+    userController.verifyAuth,
+    bookingController.createBooking
+);
+router.get(
+    "/booking/all",
+    userController.verifyAuth,
+    bookingController.getMyBookings
 );
 
 export default router;

@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { VehicleCollection, VehicleFuel, VehicleStatus } from "../libs/enums/vehicle.enum";
 
-const vehicleSchema = new Schema (
+const vehicleSchema = new Schema(
     {
         vehicleStatus: {
             type: String,
@@ -47,7 +47,7 @@ const vehicleSchema = new Schema (
 
         vehicleRating: {
             type: Number,
-            default: 0
+            default: 0,
         },
 
         vehicleImages: {
@@ -58,12 +58,12 @@ const vehicleSchema = new Schema (
         vehicleViews: {
             type: Number,
             default: 0,
-        }
+        },
     },
     {
         collection: "vehicles",
-        timestamps: true,        // updatedAt, createdAt
+        timestamps: true,
     }
 );
 
-export default mongoose.model("Vehicles", vehicleSchema);
+export default mongoose.model("Vehicle", vehicleSchema);

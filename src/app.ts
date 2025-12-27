@@ -1,6 +1,5 @@
 import express from "express";
 import path from "path";
-import router from "./router";
 import routerAdmin from "./routerAdmin";
 import morgan from "morgan";
 import { MORGAN_FORMAT } from "./libs/config";
@@ -8,6 +7,7 @@ import session from "express-session";
 import ConnectMongoDB from "connect-mongodb-session";
 import cookieParser from "cookie-parser";
 import { T } from "./libs/types/common";
+import router from "./router";
 
 const MongoDBStore = ConnectMongoDB(session);
 const store = new MongoDBStore({
