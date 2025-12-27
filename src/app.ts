@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import path from "path";
 import routerAdmin from "./routerAdmin";
@@ -20,6 +21,12 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public"))); 
 app.use(express.urlencoded({extended: true})); // Traditional API Support
 app.use(express.json());                       // Rest API Support
+app.use(
+    cors({
+        credentials: true,
+        origin: true
+    })
+);
 app.use(cookieParser());
 app.use(morgan(MORGAN_FORMAT));
 
