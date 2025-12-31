@@ -11,6 +11,7 @@ import { VehicleStatus } from "../libs/enums/vehicle.enum";
 import BookingModel from "../schemas/Booking.model";
 import BookingItemModel from "../schemas/BookingItem.model";
 import VehicleModel from "../schemas/Vehicle.model";
+import { ObjectId } from "mongoose";
 
 class BookingService {
   private readonly bookingModel;
@@ -105,9 +106,22 @@ class BookingService {
             as: "vehicledata",
           },
         },
+        // Bu qatorlarni qo'shing:
+        {
+          $addFields: {
+            vehicleId: { $arrayElemAt: ["$vehicledata", 0] }
+          }
+        },
+        {
+          $project: {
+            vehicledata: 0 // vehicledata arrayini o'chirish (ixtiyoriy)
+          }
+        }
       ])
       .exec();
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+    
+    console.log("Bookings result:", result);
     return result;
   }
 

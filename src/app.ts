@@ -27,6 +27,7 @@ app.use(
         origin: true
     })
 );
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 app.use(cookieParser());
 app.use(morgan(MORGAN_FORMAT));
 

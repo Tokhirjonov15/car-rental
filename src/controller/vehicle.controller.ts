@@ -80,10 +80,21 @@ vehicleController.createNewVehicle = async (req: AdminRequest, res: Response) =>
         const data: VehicleInput = req.body,
           files = req.files as Express.Multer.File[];
         console.log("req.files:", req.files);
-        
+    
         data.vehicleImages = files.map(ele => {
-            return ele.path.replace(/\\/g, "/");
+            // C:/Users/.../uploads/vehicles/uuid.jpg -> uploads/vehicles/uuid.jpg
+            const fullPath = ele.path.replace(/\\/g, "/");
+            const uploadsIndex = fullPath.indexOf("uploads/");
+            
+            if (uploadsIndex !== -1) {
+                return fullPath.substring(uploadsIndex); // "uploads/vehicles/uuid.jpg"
+            }
+        
+            return `uploads/vehicles/${ele.filename}`;
         });
+
+        console.log("Processed image paths:", data.vehicleImages);
+        
         await vehicleService.createNewVehicle(data);
         res.send(
             `<script>alert("Successfull creation!"); window.location.replace("/admin/vehicle/all")</script>`

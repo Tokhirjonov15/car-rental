@@ -50,6 +50,6 @@ router.post(
     "/booking/update",
     userController.verifyAuth,
     bookingController.updateBooking
-)
+);
 
 export default router;
