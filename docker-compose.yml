@@ -5,6 +5,9 @@ services:
     image: node:20.10.0
     ports:
       - 5001:3006
+    environment:
+      - NODE_ENV=production
+
     volumes:
       - ./:/usr/src/rentgo
     working_dir: /usr/src/rentgo
@@ -13,7 +16,7 @@ services:
       - production
 
     # FOR PRODUCTION
-    command: bash -c "npm ci && npm run build && mkdir -p dist/views dist/public && cp -r src/views/. dist/views && cp -r src/public/. dist/public && npm run start"
+    command: sh -c "npm ci --include=dev && npm run build && mkdir -p dist/views dist/public && cp -r src/views/. dist/views && cp -r src/public/. dist/public && npm run start"
 
 networks:
   production:
