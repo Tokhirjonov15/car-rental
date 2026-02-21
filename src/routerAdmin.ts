@@ -10,8 +10,8 @@ routerAdmin
   .get("/login", companyController.getLogin)
   .post("/login", companyController.processLogin);
 routerAdmin
-  .get("/signup", companyController.getSignup)
-  .post("/signup", companyController.processSignup);
+  .get("/signup", (_req: Request, res: Response) => res.redirect("/admin/login"))
+  .post("/signup", (_req: Request, res: Response) => res.redirect("/admin/login"));
 
 routerAdmin.get("/logout", companyController.logout);
 routerAdmin.get("/check-me", companyController.checkAuthSession);
