@@ -5,10 +5,20 @@ import app from './app';
 
 mongoose.set('strictQuery', false);
 
+const mongoUri =
+  process.env.NODE_ENV === "production"
+    ? process.env.MONGO_PROD
+    : process.env.MONGO_URL;
+const dbMode = process.env.NODE_ENV === "production" ? "production" : "development";
+
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL as string);
-    console.log('MongoDB Connected');
+    if (!mongoUri) {
+      throw new Error("MongoDB URI is not set for the current environment");
+    }
+
+    await mongoose.connect(mongoUri);
+    console.log(`MongoDB Connected (${dbMode} DB)`);
     const PORT = process.env.PORT ?? 3006;
     app.listen(PORT, function() {
         console.log(`The server is running successfully on port: ${PORT}`);

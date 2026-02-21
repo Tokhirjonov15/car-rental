@@ -11,8 +11,17 @@ import { T } from "./libs/types/common";
 import router from "./router";
 
 const MongoDBStore = ConnectMongoDB(session);
+const mongoUri =
+    process.env.NODE_ENV === "production"
+        ? process.env.MONGO_PROD
+        : process.env.MONGO_URL;
+
+if (!mongoUri) {
+    throw new Error("MongoDB URI is not set for the current environment");
+}
+
 const store = new MongoDBStore({
-    uri: String(process.env.MONGO_URL),
+    uri: mongoUri,
     collection: 'sessions',
 });
 
