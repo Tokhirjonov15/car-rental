@@ -10,6 +10,29 @@ const userService = new UserService;
 const authService = new AuthService;
 const userController: T = {};
 
+const extractToken = (req: ExtendsRequest): string | undefined => {
+    const cookieToken = req.cookies?.["accessToken"];
+    if (cookieToken) return cookieToken;
+
+    const authHeader = req.headers?.authorization;
+    if (typeof authHeader === "string" && authHeader.trim() !== "") {
+        if (authHeader.startsWith("Bearer ")) return authHeader.slice(7).trim();
+        return authHeader.trim();
+    }
+
+    const xAccessToken = req.headers?.["x-access-token"];
+    if (typeof xAccessToken === "string" && xAccessToken.trim() !== "") {
+        return xAccessToken.trim();
+    }
+
+    const xAuthToken = req.headers?.["x-auth-token"];
+    if (typeof xAuthToken === "string" && xAuthToken.trim() !== "") {
+        return xAuthToken.trim();
+    }
+
+    return undefined;
+};
+
 userController.getCompany = async (req: Request, res: Response) => {
     try {
         console.log("getCompany");
@@ -112,7 +135,7 @@ userController.verifyAuth = async (
     next: NextFunction
 ) => {
     try {
-        const token = req.cookies["accessToken"];
+        const token = extractToken(req);
         if (token) req.user = await authService.checkAuth(token);
         if (!req.user)
             throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
@@ -131,7 +154,7 @@ userController.retriveAuth = async (
     next: NextFunction
 ) => {
     try {
-        const token = req.cookies["accessToken"];
+        const token = extractToken(req);
         if (token) req.user = await authService.checkAuth(token);
 
         next();
