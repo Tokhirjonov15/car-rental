@@ -11,9 +11,6 @@ const authService = new AuthService;
 const userController: T = {};
 
 const extractToken = (req: ExtendsRequest): string | undefined => {
-    const cookieToken = req.cookies?.["accessToken"];
-    if (cookieToken) return cookieToken;
-
     const authHeader = req.headers?.authorization;
     if (typeof authHeader === "string" && authHeader.trim() !== "") {
         if (authHeader.startsWith("Bearer ")) return authHeader.slice(7).trim();
@@ -28,6 +25,11 @@ const extractToken = (req: ExtendsRequest): string | undefined => {
     const xAuthToken = req.headers?.["x-auth-token"];
     if (typeof xAuthToken === "string" && xAuthToken.trim() !== "") {
         return xAuthToken.trim();
+    }
+
+    const cookieToken = req.cookies?.["accessToken"];
+    if (typeof cookieToken === "string" && cookieToken.trim() !== "") {
+        return cookieToken.trim();
     }
 
     return undefined;
